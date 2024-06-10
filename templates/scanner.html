@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.1.6/html5-qrcode.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(270deg, #ff6ec4, #7873f5);
+            background-size: 400% 400%;
+            animation: rainbow 10s ease infinite;
+        }
+
+        @keyframes rainbow {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="container mx-auto text-center">
+        <h1 class="text-4xl font-bold text-white mb-8">QR Code Scanner</h1>
+        <div id="qr-reader" class="mx-auto"></div>
+        <div id="qr-reader-results" class="glass p-6 mt-8 mx-auto max-w-sm text-white text-lg"></div>
+    </div>
+
+    <script>
+        function onScanSuccess(qrMessage) {
+            document.getElementById('qr-reader-results').innerText = qrMessage;
+        }
+
+        function onScanError(errorMessage) {
+            // Handle scan error
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess, onScanError);
+    </script>
+</body>
+</html>
